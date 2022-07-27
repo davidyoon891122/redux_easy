@@ -1,22 +1,21 @@
+import { useRef } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { create, done } from "./../store/modules/todo"
+
 export default function AllTodoList() {
-    const list = [
-        {
-            id: 0,
-            text: "척추 펴기",
-            done: true
-        },
-        {
-            id: 1,
-            text: "물 마시기",
-            done: false
-        },
-        ]
+    const list = useSelector((state) => state.todo.list)
+    const inputRef = useRef()
+    const dispatch = useDispatch()
+
     return (
         <section>
             <h1>할 일 목록</h1>
             <div>
-                <input type="text"/>
-                <button>확인</button>
+                <input type="text" ref={inputRef}/>
+                <button onClick={() => {
+                    dispatch(create({ id: list.length, text: inputRef.current.value }))
+                }}
+                >확인</button>
             </div>
             <ul>
                 {list.map(item => <li key={item.id}>{item.text}</li>)}
