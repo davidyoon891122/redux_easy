@@ -9,10 +9,12 @@ import { createStore } from "redux"
 import rootReducer from "./store"
 import { Provider } from "react-redux"
 
-const store = createStore(rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+const devTool = window.__REDUX_DEVTOOLS_EXTENSION__ &&
+window.__REDUX_DEVTOOLS_EXTENSION__()
+const store = createStore(
+  rootReducer,
+  devTool
+)
 console.log(store.getState())
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
