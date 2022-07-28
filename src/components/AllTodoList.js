@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { create, done } from "./../store/modules/todo"
 
 export default function AllTodoList() {
-    const list = useSelector((state) => state.todo.list)
+    const list = useSelector((state) => state.todo.list).filter(item => item.done == false)
     const inputRef = useRef()
     const dispatch = useDispatch()
 
@@ -13,12 +13,16 @@ export default function AllTodoList() {
             <div>
                 <input type="text" ref={inputRef}/>
                 <button onClick={() => {
-                    dispatch(create({ id: list.length, text: inputRef.current.value }))
-                }}
-                >확인</button>
+                    dispatch(create({ id: list.length + 1, text: inputRef.current.value }))
+                }}>
+                    확인
+                    </button>
             </div>
             <ul>
-                {list.map(item => <li key={item.id}>{item.text}</li>)}
+                {list.map(item => 
+                <li key={item.id}>
+                    {item.text}
+                    <button onClick={() => dispatch(done(item.id))}>완료</button></li>)}
             </ul>
         </section>
     )

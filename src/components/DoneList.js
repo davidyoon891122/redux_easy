@@ -1,5 +1,7 @@
+import { useSelector } from "react-redux"
+
 export default function DoneList() {
-    const list = []
+    const list = useSelector(state => state.todo.list).filter(item => item.done) // Done == true
     return (
         <section>
             {list.length > 0 && <h1>완료된 목록</h1>}
